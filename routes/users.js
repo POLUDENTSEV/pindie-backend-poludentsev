@@ -1,9 +1,15 @@
-const sendAllusers = require("../controllers/users");
-const findAllusers = require("../middlewares/users");
-
+const { sendAllUsers, sendUserById, sendUserCreated } = require("../controllers/users");
+const { findAllUsers, findUserById, createUser } = require("../middlewares/users");
 
 const usersRouter = require("express").Router();
 
-usersRouter.get("/users", findAllusers, sendAllusers);
+usersRouter.get("/users", findAllUsers, sendAllUsers);
+usersRouter.get("/users/:id", findUserById, sendUserById);
+usersRouter.post(
+    "/users",
+    findAllUsers,
+    createUser,
+    sendUserCreated
+  ); 
 
 module.exports = usersRouter;

@@ -13,5 +13,10 @@ const sendAllCategories = (req, res) => {
     res.end(JSON.stringify(req.category));
   }; 
 
-  module.exports = { sendAllCategories, sendCategoryById, sendCategoryCreated };
+  const sendCategorysUpdated = (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(200).send(JSON.stringify({ message: "Игра обновлена" }));
+  }; 
+
+  module.exports = { sendAllCategories, sendCategoryById, sendCategoryCreated, sendCategorysUpdated };
   

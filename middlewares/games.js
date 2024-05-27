@@ -1,11 +1,20 @@
 const games = require("../models/game");
 
 const findAllGames = async (req, res, next) => {
-    req.gamesArray = await games
+  const categoryName = req.query["categories.name"];
+
+    let gamesArray = await games
     .find({})
     .populate("categories")
     .populate({path: "users", slelect: "-password" });
-    next();
+
+if (categoryName) {
+  gamesArray = gamesArray.filter((game) => 
+    game.categories.some((category) => category.name === categoryName)
+  );
+}
+  req.gamesArray = gamesArray;
+  next();
 };
 
 const createGame = async (req, res, next) => {
@@ -25,7 +34,7 @@ const createGame = async (req, res, next) => {
         req.game = await games
         .findById(req.params.id)
         .populate("categories")
-        .populate("users");
+        .populate ({ path: "users", select: "-password"});
     next();
     } catch (error) {
         res.setHeader("Content-Type", "application/json");

@@ -1,4 +1,4 @@
-const { sendAllGames, sendGameCreated, sendGameUpdated, sendGameDeleted } = require("../controllers/games");
+const { sendAllGames, sendGameCreated, sendGameUpdated, sendGameDeleted, sendGameById } = require("../controllers/games");
 const { findAllGames, createGame, findGameById, updateGame, deleteGame } = require("../middlewares/games");
 const { checkAuth } = require("../middlewares/auth.js");
 
@@ -8,6 +8,11 @@ gamesRouter.get(
   "/games", 
   findAllGames, 
   sendAllGames);
+
+  gamesRouter.get(
+    "/games/:id", 
+    findGameById, 
+    sendGameById);
 
 gamesRouter.post(
   "/games", 
